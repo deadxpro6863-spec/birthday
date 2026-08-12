@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Manisa 💖</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; overflow-x:hidden;
+    font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+    background:radial-gradient(circle at top,#ffd8ef 0,#c9b7ff 45%,#15152f 100%);
+    color:#fff; text-align:center;
+  }
+  .stars,.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+  .star{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;opacity:.8;animation:twinkle 2s infinite alternate}
+  @keyframes twinkle{to{opacity:.15;transform:scale(.4)}}
+  .heart{position:absolute;font-size:22px;animation:float 7s linear infinite;opacity:.55}
+  @keyframes float{from{transform:translateY(110vh) rotate(0)}to{transform:translateY(-15vh) rotate(360deg)}}
+  .screen{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    align-items:center; padding:28px 18px; position:relative;
+  }
+  .card{
+    width:min(720px,94vw); padding:32px 22px; border-radius:28px;
+    background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.3);
+    backdrop-filter:blur(15px); box-shadow:0 20px 70px rgba(0,0,0,.25);
+  }
+  .small{letter-spacing:3px;text-transform:uppercase;font-size:12px;opacity:.8}
+  h1{font-size:clamp(42px,10vw,78px);margin:10px 0 4px}
+  h2{font-size:clamp(28px,7vw,48px);margin:8px 0 18px}
+  p{font-size:17px;line-height:1.65;max-width:600px;margin:12px auto}
+  .btn{
+    border:0;border-radius:999px;padding:14px 24px;margin:10px 5px;
+    font-size:16px;font-weight:700;cursor:pointer;color:#3b1744;
+    background:#fff;box-shadow:0 8px 25px rgba(0,0,0,.18);transition:.2s;
+  }
+  .btn:hover{transform:translateY(-3px) scale(1.02)}
+  .hidden{display:none}
+  .countdown{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:22px 0}
+  .time{
+    min-width:82px;padding:14px 10px;border-radius:18px;background:rgba(0,0,0,.18)
+  }
+  .time b{display:block;font-size:30px}.time span{font-size:11px;opacity:.75}
+  .reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:22px}
+  .reason{padding:22px 12px;border-radius:20px;background:rgba(255,255,255,.12);font-size:19px}
+  .reason span{display:block;font-size:30px;margin-bottom:8px}
+  .message{
+    margin-top:20px;padding:20px;border-radius:20px;background:rgba(255,255,255,.12);
+    display:none;animation:pop .45s ease;
+  }
+  @keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  footer{opacity:.7;font-size:12px;margin-top:28px}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div><div class="hearts" id="hearts"></div>
+
+<section class="screen">
+  <div class="card">
+    <div class="small">A tiny birthday surprise from Manav</div>
+    <h1>Hey, Manisa ✨</h1>
+    <p>There's a little something waiting for you...</p>
+    <button class="btn" onclick="openSurprise()">Open your surprise 💌</button>
+  </div>
+</section>
+
+<section class="screen hidden" id="main">
+  <div class="card">
+    <div class="small">16 August 🎂</div>
+    <h2>Happy Birthday, Manisa! 💖</h2>
+    <p>
+      You have one of those smiles that can instantly make a moment feel brighter.
+      Your eyes, your hair, and honestly just your whole vibe make you wonderfully you.
+    </p>
+
+    <div class="countdown" id="countdown"></div>
+
+    <h2 style="font-size:30px">Things that make you special 🌷</h2>
+    <div class="reasons">
+      <div class="reason"><span>😊</span>Your smile</div>
+      <div class="reason"><span>✨</span>Your eyes</div>
+      <div class="reason"><span>🌸</span>Your hair</div>
+      <div class="reason"><span>💫</span>Your cute vibe</div>
+    </div>
+
+    <button class="btn" onclick="showMessage()">One more thing... 👀</button>
+    <div class="message" id="message">
+      <b>Manisa,</b><br><br>
+      I hope this birthday brings you loads of happiness, laughter and unforgettable
+      memories. Stay exactly the kind, fun and amazing person you are.
+      <br><br>
+      — Manav 💖
+    </div>
+    <footer>Made specially for Manisa • 16.08 🎀</footer>
+  </div>
+</section>
+
+<script>
+  const stars=document.getElementById('stars');
+  for(let i=0;i<90;i++){
+    const s=document.createElement('i'); s.className='star';
+    s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*2+'s'; stars.appendChild(s);
+  }
+  const hearts=document.getElementById('hearts');
+  ['💗','💕','✨','🌸','💖'].forEach((x,i)=>{
+    for(let j=0;j<4;j++){
+      const h=document.createElement('div'); h.className='heart'; h.textContent=x;
+      h.style.left=(i*20+Math.random()*15)+'%';
+      h.style.animationDelay=Math.random()*7+'s';
+      h.style.animationDuration=(5+Math.random()*5)+'s';
+      hearts.appendChild(h);
+    }
+  });
+
+  function openSurprise(){
+    document.getElementById('main').classList.remove('hidden');
+    document.getElementById('main').scrollIntoView({behavior:'smooth'});
+    confetti();
+  }
+
+  function showMessage(){
+    const m=document.getElementById('message');
+    m.style.display='block'; confetti();
+  }
+
+  function updateCountdown(){
+    const now=new Date();
+    let target=new Date(now.getFullYear(),7,16,0,0,0);
+    if(now>=target) target=new Date(now.getFullYear()+1,7,16,0,0,0);
+    let diff=target-now;
+    const d=Math.floor(diff/86400000); diff%=86400000;
+    const h=Math.floor(diff/3600000); diff%=3600000;
+    const min=Math.floor(diff/60000); diff%=60000;
+    const sec=Math.floor(diff/1000);
+    document.getElementById('countdown').innerHTML=
+      `<div class="time"><b>${d}</b><span>DAYS</span></div>
+       <div class="time"><b>${h}</b><span>HOURS</span></div>
+       <div class="time"><b>${min}</b><span>MINUTES</span></div>
+       <div class="time"><b>${sec}</b><span>SECONDS</span></div>`;
+  }
+  updateCountdown(); setInterval(updateCountdown,1000);
+
+  function confetti(){
+    for(let i=0;i<55;i++){
+      const c=document.createElement('div');
+      c.textContent=['💖','✨','🎉','🌸'][Math.floor(Math.random()*4)];
+      c.style.position='fixed'; c.style.left=(40+Math.random()*20)+'%'; c.style.top='45%';
+      c.style.fontSize=(14+Math.random()*18)+'px'; c.style.zIndex=99;
+      document.body.appendChild(c);
+      const x=(Math.random()-0.5)*600, y=250+Math.random()*500;
+      c.animate([{transform:'translate(0,0) rotate(0)',opacity:1},
+                 {transform:`translate(${x}px,${y}px) rotate(${Math.random()*720}deg)`,opacity:0}],
+                 {duration:1200+Math.random()*900,easing:'cubic-bezier(.2,.8,.2,1)'})
+       .onfinish=()=>c.remove();
+    }
+  }
+</script>
+</body>
+</html>
